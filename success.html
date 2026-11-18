@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Successful — Dollar Earning Playbook</title>
+<meta name="description" content="Your payment was successful. Download the Dollar Earning Playbook PDF instantly.">
+<!-- Success page: Razorpay redirects buyers here after payment (set this file's URL as the payment link's callback_url). -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; overflow-x: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #1c2b3a; background: #fdf3ea; line-height: 1.6; }
+  .wrap { max-width: 620px; margin: 0 auto; padding: 24px 16px 48px; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; padding: 6px 0 18px; }
+  .brand { font-weight: 800; font-size: 21px; color: #10243e; }
+  .brand span { color: #ff6a00; }
+  .handle { font-size: 14px; color: #5a6b7d; }
+  .card { background: #ffffff; border-radius: 18px; padding: 30px 24px; text-align: center; box-shadow: 0 8px 24px rgba(16,36,62,.12); }
+  .tick { width: 76px; height: 76px; margin: 0 auto 14px; border-radius: 50%; background: linear-gradient(135deg, #1faa53, #0d7a38); color: #ffffff; font-size: 42px; line-height: 76px; font-weight: 800; box-shadow: 0 4px 14px rgba(13,122,56,.4); }
+  h1 { font-size: 28px; color: #10243e; margin: 0 0 8px; }
+  .sub { font-size: 16px; color: #33475e; margin: 0 0 6px; }
+  .payid { font-size: 13px; color: #5a6b7d; margin: 0 0 18px; display: none; }
+  .dl { display: block; min-height: 52px; background: linear-gradient(135deg, #ff7a00, #ff4d00); color: #ffffff; font-weight: 800; font-size: 18px; text-decoration: none; padding: 15px 18px; border-radius: 12px; box-shadow: 0 4px 14px rgba(255,77,0,.45); }
+  .dl:hover { filter: brightness(1.05); }
+  .email-note { background: #eef7f0; border: 1px solid #bfe3c8; border-radius: 12px; padding: 14px 16px; margin-top: 18px; font-size: 15px; text-align: left; }
+  .email-note strong { color: #0d7a38; }
+  .home { display: inline-block; margin-top: 20px; font-size: 14px; color: #1d3f7a; text-decoration: none; font-weight: 700; }
+  footer { text-align: center; font-size: 13px; color: #5a6b7d; margin-top: 28px; }
+  @media (max-width: 480px) {
+    .wrap { padding: 16px 12px 40px; }
+    h1 { font-size: 24px; }
+    .card { padding: 24px 16px; }
+    .dl { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">Freelance<span>Fuel</span></div>
+    <div class="handle">@nitinarora</div>
+  </div>
+
+  <div class="card">
+    <div class="tick">✓</div>
+    <h1>Payment Successful!</h1>
+    <p class="sub">Thank you for buying the <strong>Dollar Earning Playbook</strong>. Your copy is ready below.</p>
+    <p class="payid" id="payid"></p>
+    <a class="dl" href="dollar-earning-playbook-final.pdf" download>Download Your PDF Now</a>
+    <div class="email-note">
+      <strong>PDF aapke email par bhi bheja jayega.</strong><br>
+      Jo email aapne payment ke waqt diya tha, us par PDF ka copy bhej diya jayega. Inbox ke saath Spam / Promotions folder bhi check karo, kabhi-kabhi mail wahan chala jata hai.
+    </div>
+    <a class="home" href="index.html">← Back to the book page</a>
+  </div>
+
+  <footer>
+    By @nitinarora · FreelanceFuel<br>
+    Koi problem ho to jahan se ye link mila tha, wahi message karo.
+  </footer>
+</div>
+
+<script>
+// If Razorpay redirected here with a payment id, show it for the buyer's confirmation.
+(function () {
+  try {
+    var id = new URLSearchParams(window.location.search).get('razorpay_payment_id');
+    if (id) {
+      var el = document.getElementById('payid');
+      el.textContent = 'Payment ID: ' + id;
+      el.style.display = 'block';
+    }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
