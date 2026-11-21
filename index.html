@@ -312,13 +312,14 @@
 </div>
 
 <script>
-// Countdown: 1 hour 53 minutes per visitor, survives refresh; on expiry all prices revert to ₹499.
+// Countdown: 1 hour 53 minutes per visitor, survives refresh. Price is always ₹149 —
+// the timer is only urgency, so on expiry it restarts instead of changing the price.
 (function () {
   var KEY = 'dep_offer_deadline_v1';
   var DURATION = 113 * 60 * 1000;
   var now = Date.now();
   var dl = parseInt(localStorage.getItem(KEY) || '0', 10);
-  if (!dl) { dl = now + DURATION; try { localStorage.setItem(KEY, String(dl)); } catch (e) {} }
+  if (!dl || dl <= now) { dl = now + DURATION; try { localStorage.setItem(KEY, String(dl)); } catch (e) {} }
   function fmt(ms) {
     if (ms < 0) ms = 0;
     var s = Math.floor(ms / 1000);
@@ -331,10 +332,10 @@
     var left = dl - Date.now();
     var t = document.getElementById('timer');
     if (left <= 0) {
-      document.querySelectorAll('.js-sale').forEach(function (el) { el.textContent = '₹499'; });
-      document.querySelectorAll('.js-strike, .js-save').forEach(function (el) { el.style.display = 'none'; });
-      if (t) t.textContent = 'Offer ended';
-      return;
+      // Timer is only for urgency — price stays ₹149, so restart the countdown.
+      dl = Date.now() + DURATION;
+      try { localStorage.setItem(KEY, String(dl)); } catch (e) {}
+      left = DURATION;
     }
     if (t) t.textContent = fmt(left);
     setTimeout(tick, 1000);
